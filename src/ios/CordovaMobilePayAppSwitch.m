@@ -1,7 +1,7 @@
 #import "CordovaMobilePayAppSwitch.h"
 
 #import <Cordova/CDVAvailability.h>
-#import "MobilePayManager/MobilePayManager.h"
+#import "MobilePayManager.h"
 
 @implementation CordovaMobilePayAppSwitch
 
@@ -46,7 +46,7 @@ NSString *myCallbackId;
 - (void)handleOpenURL:(NSNotification*)notification
 {
     NSURL* url = [notification object];
-    
+
     if ([url isKindOfClass:[NSURL class]]) {
         [self handleMobilePayPaymentWithUrl:url];
         //NSLog(@"handleOpenURL %@", url);
@@ -70,7 +70,7 @@ NSString *myCallbackId;
         NSData *jsonResultData = [NSJSONSerialization dataWithJSONObject:jsonResultDict options:NSJSONWritingPrettyPrinted error: nil];
         NSString *jsonResultString = [[NSString alloc] initWithData:jsonResultData encoding:NSUTF8StringEncoding];
         NSLog(@"SuccessResult:\n%@", jsonResultString);
-        
+
         CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:jsonResultDict];
         [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
@@ -102,7 +102,7 @@ NSString *myCallbackId;
         @"Cancelled", @"errorMessage",
         mobilePayCancelledPayment.orderId, @"orderId",
         nil];
-        
+
         NSData *jsonResultData = [NSJSONSerialization dataWithJSONObject:jsonResultDict options:NSJSONWritingPrettyPrinted error: nil];
         NSString *jsonResultString = [[NSString alloc] initWithData:jsonResultData encoding:NSUTF8StringEncoding];
         NSLog(@"CancelledResult:\n%@", jsonResultString);
