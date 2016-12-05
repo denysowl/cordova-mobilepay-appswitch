@@ -23,12 +23,34 @@ NSString *myCallbackId;
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
 
     if (![[MobilePayManager sharedInstance]isMobilePayInstalled:MobilePayCountry_Denmark]) {
-      UIAlertView *installAlert = [[UIAlertView alloc] initWithTitle:@"MobilePay påkrævet"
+      /*UIAlertView *installAlert = [[UIAlertView alloc] initWithTitle:@"MobilePay påkrævet"
                                                       message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
                                                     delegate:self
                                             cancelButtonTitle:@"Fortryd"
                                             otherButtonTitles:@"Installer MobilePay",nil];
       [installAlert show];
+      */
+
+      //Another method:
+      UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"MobilePay påkrævet"
+                                                                         message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
+                                                                  preferredStyle:UIAlertControllerStyleAlert];
+      //We add buttons to the alert controller by creating UIAlertActions:
+      UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Fortryd"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:nil]; //You can use a block here to handle a press on this button
+
+      UIAlertAction *actionInstall = [UIAlertAction actionWithTitle:@"Fortryd"
+                                                style:UIAlertActionStyleDefault
+                                                handler:^(UIAlertAction *action) {
+                                                  NSURL *url = [NSURL URLWithString:[[MobilePayManager sharedInstance] mobilePayAppStoreLinkDK]];
+                                                  [[UIApplication sharedApplication] openURL:url];
+                                                }]; //You can use a block here to handle a press on this button
+
+
+      [alertController addAction:actionOk];
+      [alertController addAction:actionInstall];
+      [self presentViewController:alertController animated:YES completion:nil];
       return;
     }
 
