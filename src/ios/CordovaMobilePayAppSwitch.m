@@ -16,7 +16,7 @@ NSString *myCallbackId;
     // Put here the code that should be on the AppDelegate.m
     // NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     // NSLog(@"finshLaunching %@", urlScheme);
-    NSLog(@"Finish launching");
+    NSLog(@"Finish launching mobile pay plugin");
 }
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
@@ -46,11 +46,12 @@ NSString *myCallbackId;
       NSLog(@"%@", exception.reason);
     }
 
-    UIAlertView *endAlert = [[UIAlertView alloc] initWithTitle:@"title2"
+    UIAlertView *startAlert = [[UIAlertView alloc] initWithTitle:@"startAlert"
                                                     message:@"a asfd sd fsd"
                                                   delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Install MobilePay",nil];
+    [startAlert show];
 
 
     NSLog(@"Created payment");
@@ -72,7 +73,7 @@ NSString *myCallbackId;
 
             @try{
 
-              [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
+              /*[[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
                   NSLog(@"error in payment, showing allert");
 
                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
@@ -81,7 +82,7 @@ NSString *myCallbackId;
                                                         cancelButtonTitle:@"Cancel"
                                                         otherButtonTitles:@"Install MobilePay",nil];
                   [alert show];
-              }];
+              }];*/
             }
             @catch (NSException *exception){
               NSLog(@"begin: %@", exception.reason);
@@ -110,7 +111,11 @@ NSString *myCallbackId;
 
     //for test, sleep to allow logs to be used
     NSLog(@"end");
-
+    UIAlertView *endAlert = [[UIAlertView alloc] initWithTitle:@"title2"
+                                                    message:@"a asfd sd fsd"
+                                                  delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Install MobilePay",nil];
     [endAlert show];
 }
 - (void)handleOpenURL:(NSNotification*)notification
