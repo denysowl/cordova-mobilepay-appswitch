@@ -63,20 +63,39 @@ NSString *myCallbackId;
         if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
             NSLog(@"order and productprice ok");
 
-            [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
-                NSLog(@"error in payment, showing allert");
+            UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
+                                                            message:@"a asfd sd fsd"
+                                                          delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Install MobilePay",nil];
+            [okAlert show];
 
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
-                                                                message:[NSString stringWithFormat:@"reason: %@, suggestion: %@",error.localizedFailureReason, error.localizedRecoverySuggestion]
-                                                              delegate:self
-                                                      cancelButtonTitle:@"Cancel"
-                                                      otherButtonTitles:@"Install MobilePay",nil];
-                [alert show];
-            }];
+            @try{
+
+              [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
+                  NSLog(@"error in payment, showing allert");
+
+                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
+                                                                  message:[NSString stringWithFormat:@"reason: %@, suggestion: %@",error.localizedFailureReason, error.localizedRecoverySuggestion]
+                                                                delegate:self
+                                                        cancelButtonTitle:@"Cancel"
+                                                        otherButtonTitles:@"Install MobilePay",nil];
+                  [alert show];
+              }];
+            }
+            @catch (NSException *exception){
+              NSLog(@"begin: %@", exception.reason);
+              UIAlertView *exceptionAlert = [[UIAlertView alloc] initWithTitle:@"exceptionAlert"
+                                                              message:@"a asfd sd fsd"
+                                                            delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                                    otherButtonTitles:@"Install MobilePay",nil];
+              [exceptionAlert show];
+            }
         } else {
           NSLog(@"Not ok");
 
-          NSDictionary *jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+          /*NSDictionary *jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"Missing orderId or productPrice", @"errorMessage",
           nil];
 
@@ -86,7 +105,7 @@ NSString *myCallbackId;
           NSLog(@"ErrorResult:\n%@", jsonResultString);
 
           CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
-          [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
+          [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];*/
         }
 
     //for test, sleep to allow logs to be used
