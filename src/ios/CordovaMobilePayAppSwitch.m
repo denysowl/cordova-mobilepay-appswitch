@@ -36,10 +36,10 @@ NSString *myCallbackId;
 
     float fAmount = [amountStr floatValue];
     //NSLog(@"convert to float:'%f'",fAmount);
-    NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
+    //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
     @try{
-    MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
+    //MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
     }
     @catch (NSException *exception){
       NSLog(@"%@", exception.reason);
