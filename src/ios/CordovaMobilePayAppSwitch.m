@@ -20,12 +20,14 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
-    NSLog(@"startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
+    NSLog(@"2startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
 
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     NSLog(@"After setupWithMerchantId");
+    NSLog(@"command:'%@'",command);
+
     myCallbackId = command.callbackId;
     NSString* amountStr = [command.arguments objectAtIndex:0];
     NSString* orderId = [command.arguments objectAtIndex:1];
