@@ -47,12 +47,12 @@ NSString *myCallbackId;
 
             [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
                 NSLog(@"error in payment, showing allert");
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
+                /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
                                                                 message:[NSString stringWithFormat:@"reason: %@, suggestion: %@",error.localizedFailureReason, error.localizedRecoverySuggestion]
                                                               delegate:self
                                                       cancelButtonTitle:@"Cancel"
                                                       otherButtonTitles:@"Install MobilePay",nil];
-                [alert show];
+                [alert show];*/
             }];
         } else {
           NSLog(@"Not ok");
