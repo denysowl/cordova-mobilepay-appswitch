@@ -20,18 +20,13 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
-    printf("start");
     NSLog(@"2startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
-    printf("addObserver");
-  //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
-    NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
-    printf("after addObserver");
-  //[[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
-    printf("after setup");
-    NSLog(@"After setupWithMerchantId");
-    NSLog(@"command:'%@'",command);
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
+    //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
+  [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
+    //NSLog(@"After setupWithMerchantId");
+    //NSLog(@"command:'%@'",command);
 
-    printf("fetching values");
     myCallbackId = command.callbackId;
     NSString* amountStr = [command.arguments objectAtIndex:0];
     NSString* orderId = [command.arguments objectAtIndex:1];
@@ -62,7 +57,7 @@ NSString *myCallbackId;
     //for test, sleep to allow logs to be used
     NSLog(@"Sleeping");
     usleep(2000);
-
+    fflush(stderr);
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
