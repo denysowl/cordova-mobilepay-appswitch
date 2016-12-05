@@ -38,8 +38,9 @@ NSString *myCallbackId;
     //NSLog(@"convert to float:'%f'",fAmount);
     //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
+    MobilePayPayment *payment = nil;
     @try{
-      MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
+      payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
     }
     @catch (NSException *exception){
       NSLog(@"%@", exception.reason);
@@ -90,7 +91,7 @@ NSString *myCallbackId;
 
     //for test, sleep to allow logs to be used
     NSLog(@"end");
-    
+
     [endAlert show];
 }
 - (void)handleOpenURL:(NSNotification*)notification
