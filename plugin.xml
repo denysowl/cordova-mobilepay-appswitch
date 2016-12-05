@@ -7,8 +7,8 @@
     <description>Cordova plugin for the Danske Bank Mobilepay AppSwitcher, to enable cordova-based apps to use the app switcher SDK.</description>
     <license>MIT</license>
     <keywords>mobilepay,cordova,appswitcher</keywords>
-    <repo>https://github.com/mrlund/cordova-mobilepay-appswitch.git</repo>
-    <issue>https://github.com/mrlund/cordova-mobilepay-appswitch/issues</issue>
+    <repo>https://github.com/All2day/cordova-mobilepay-appswitch.git</repo>
+    <issue>https://github.com/All2day/cordova-mobilepay-appswitch/issues</issue>
 
     <!-- android -->
     <platform name="android">
