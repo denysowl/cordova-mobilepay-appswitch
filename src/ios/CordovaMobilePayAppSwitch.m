@@ -21,10 +21,10 @@ NSString *myCallbackId;
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
     NSLog(@"2startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
+  //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
 
-  [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
+  //[[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     NSLog(@"After setupWithMerchantId");
     NSLog(@"command:'%@'",command);
 
@@ -63,7 +63,7 @@ NSString *myCallbackId;
 - (void)handleOpenURL:(NSNotification*)notification
 {
     NSURL* url = [notification object];
-
+    NSLog(@"handleOpenUrl called");
     if ([url isKindOfClass:[NSURL class]]) {
         [self handleMobilePayPaymentWithUrl:url];
         NSLog(@"handleOpenURL %@", url);
