@@ -8,7 +8,7 @@
 NSString *myCallbackId;
 
 - (void)pluginInitialize {
-
+  NSLog(@"plugin initializing");
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
 }
 - (void)finishLaunching:(NSNotification *)notification
@@ -21,10 +21,10 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
-    NSLog(@"3startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
+    NSLog(@"4startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
+  //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
-  [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
+  //[[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     //NSLog(@"After setupWithMerchantId");
     //NSLog(@"command:'%@'",command);
 
