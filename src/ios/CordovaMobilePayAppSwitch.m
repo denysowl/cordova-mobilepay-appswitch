@@ -44,7 +44,19 @@ NSString *myCallbackId;
     @catch (NSException *exception){
       NSLog(@"%@", exception.reason);
     }
-        NSLog(@"Created payment");
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title"
+                                                    message:@"a asfd sd fsd"
+                                                  delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Install MobilePay",nil];
+    [alert show];
+
+    NSLog(@"Created payment");
+
+
+
+
 
         //No need to start a payment if one or more parameters are missing
         /*if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
