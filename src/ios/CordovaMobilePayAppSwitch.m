@@ -23,7 +23,7 @@ NSString *myCallbackId;
     NSLog(@"startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
-    
+
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     NSLog(@"After setupWithMerchantId");
     myCallbackId = command.callbackId;
@@ -52,6 +52,10 @@ NSString *myCallbackId;
                 [alert show];
             }];
         }
+
+    //for test, sleep to allow logs to be used
+    NSLog(@"Sleeping");
+    usleep(2000)
 
 }
 - (void)handleOpenURL:(NSNotification*)notification
