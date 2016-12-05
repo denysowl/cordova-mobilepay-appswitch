@@ -55,7 +55,7 @@ NSString *myCallbackId;
 
     //for test, sleep to allow logs to be used
     NSLog(@"Sleeping");
-    usleep(2000)
+    usleep(2000);
 
 }
 - (void)handleOpenURL:(NSNotification*)notification
