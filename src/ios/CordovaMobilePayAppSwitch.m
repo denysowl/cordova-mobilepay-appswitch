@@ -59,7 +59,7 @@ NSString *myCallbackId;
 
 
         //No need to start a payment if one or more parameters are missing
-        /*if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
+        if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
             NSLog(@"order and productprice ok");
 
             [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
@@ -86,19 +86,11 @@ NSString *myCallbackId;
 
           CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-        }*/
+        }
 
     //for test, sleep to allow logs to be used
     NSLog(@"end");
-    /*NSLog(@"Sleeping");
-    usleep(2000);
-    NSLog(@"Sleeping2");
-    usleep(2000);
-    NSLog(@"Sleeping3");
-    usleep(2000);
-    NSLog(@"Sleeping4");
-    usleep(2000);
-    fflush(stderr);*/
+    
     [endAlert show];
 }
 - (void)handleOpenURL:(NSNotification*)notification
