@@ -50,7 +50,10 @@ NSString *myCallbackId;
 
       [alertController addAction:actionCancel];
       [alertController addAction:actionInstall];
-      [self presentViewController:alertController animated:YES completion:nil];
+
+      UIViewController* rootController = [UIApplication sharedApplication].delegate.window.rootViewController;
+
+      [rootController presentViewController:alertController animated:YES completion:nil];
       return;
     }
 
