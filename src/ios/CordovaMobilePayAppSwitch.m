@@ -22,9 +22,9 @@ NSString *myCallbackId;
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
     NSLog(@"5startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
-  //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
-  //[[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
+  [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     //NSLog(@"After setupWithMerchantId");
     //NSLog(@"command:'%@'",command);
 
@@ -39,13 +39,13 @@ NSString *myCallbackId;
     //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
     @try{
-    //MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
+      MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
     }
     @catch (NSException *exception){
       NSLog(@"%@", exception.reason);
     }
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title2"
+    UIAlertView *endAlert = [[UIAlertView alloc] initWithTitle:@"title2"
                                                     message:@"a asfd sd fsd"
                                                   delegate:self
                                           cancelButtonTitle:@"Cancel"
@@ -99,7 +99,7 @@ NSString *myCallbackId;
     NSLog(@"Sleeping4");
     usleep(2000);
     fflush(stderr);*/
-    [alert show];
+    [endAlert show];
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
