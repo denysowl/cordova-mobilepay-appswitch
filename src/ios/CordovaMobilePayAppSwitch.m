@@ -38,7 +38,12 @@ NSString *myCallbackId;
     //NSLog(@"convert to float:'%f'",fAmount);
     NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
+    @try{
     MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
+    }
+    @catch (NSException *exception){
+      NSLog(@"%@", exception.reason);
+    }
         NSLog(@"Created payment");
 
         //No need to start a payment if one or more parameters are missing
