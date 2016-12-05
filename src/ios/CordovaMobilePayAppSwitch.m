@@ -22,7 +22,8 @@ NSString *myCallbackId;
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
     NSLog(@"startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
-    NSLog(@"After addObserver");
+    NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
+    
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     NSLog(@"After setupWithMerchantId");
     myCallbackId = command.callbackId;
