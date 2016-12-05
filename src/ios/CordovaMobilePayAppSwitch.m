@@ -31,10 +31,10 @@ NSString *myCallbackId;
     NSString* amountStr = [command.arguments objectAtIndex:0];
     NSString* orderId = [command.arguments objectAtIndex:1];
 
-    NSLog(@"After extract, amount:'%@', order:'%@'",amountStr,orderId);
+    //NSLog(@"After extract, amount:'%@', order:'%@'",amountStr,orderId);
 
     float fAmount = [amountStr floatValue];
-    NSLog(@"convert to float:'%f'",fAmount);
+    //NSLog(@"convert to float:'%f'",fAmount);
 
     MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
         NSLog(@"Created payment");
@@ -55,9 +55,9 @@ NSString *myCallbackId;
         }
 
     //for test, sleep to allow logs to be used
-    NSLog(@"Sleeping");
-    usleep(2000);
-    fflush(stderr);
+    //NSLog(@"Sleeping");
+    //usleep(2000);
+    //fflush(stderr);
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
