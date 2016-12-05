@@ -16,6 +16,7 @@ NSString *myCallbackId;
     // Put here the code that should be on the AppDelegate.m
     // NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     // NSLog(@"finshLaunching %@", urlScheme);
+    NSLog(@"Finish launching");
 }
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
@@ -31,10 +32,11 @@ NSString *myCallbackId;
     NSString* amountStr = [command.arguments objectAtIndex:0];
     NSString* orderId = [command.arguments objectAtIndex:1];
 
-    //NSLog(@"After extract, amount:'%@', order:'%@'",amountStr,orderId);
+
 
     float fAmount = [amountStr floatValue];
     //NSLog(@"convert to float:'%f'",fAmount);
+    NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
     MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
         NSLog(@"Created payment");
@@ -52,6 +54,20 @@ NSString *myCallbackId;
                                                       otherButtonTitles:@"Install MobilePay",nil];
                 [alert show];
             }];
+        } else {
+          NSLog(@"Not ok");
+
+          NSDictionary *jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+          @"Missing orderId or productPrice", @"errorMessage",
+          nil];
+
+          NSData *jsonResultData = [NSJSONSerialization dataWithJSONObject:jsonResultDict options:NSJSONWritingPrettyPrinted error: nil];
+          NSString *jsonResultString = [[NSString alloc] initWithData:jsonResultData encoding:NSUTF8StringEncoding];
+
+          NSLog(@"ErrorResult:\n%@", jsonResultString);
+
+          CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
+          [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
         }
 
     //for test, sleep to allow logs to be used
