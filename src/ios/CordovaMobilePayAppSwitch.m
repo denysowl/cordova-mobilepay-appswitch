@@ -21,7 +21,7 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
-    NSLog(@"4startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
+    NSLog(@"5startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
   //[[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
@@ -77,9 +77,16 @@ NSString *myCallbackId;
         }*/
 
     //for test, sleep to allow logs to be used
-    NSLog(@"Sleeping");
+    NSLog(@"end");
+    /*NSLog(@"Sleeping");
     usleep(2000);
-    fflush(stderr);
+    NSLog(@"Sleeping2");
+    usleep(2000);
+    NSLog(@"Sleeping3");
+    usleep(2000);
+    NSLog(@"Sleeping4");
+    usleep(2000);
+    fflush(stderr);*/
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
