@@ -48,7 +48,7 @@ NSString *myCallbackId;
                                                 }]; //You can use a block here to handle a press on this button
 
 
-      [alertController addAction:actionOk];
+      [alertController addAction:actionCancel];
       [alertController addAction:actionInstall];
       [self presentViewController:alertController animated:YES completion:nil];
       return;
