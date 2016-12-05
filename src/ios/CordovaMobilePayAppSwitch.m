@@ -22,18 +22,27 @@ NSString *myCallbackId;
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
     NSLog(@"startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
+    NSLog(@"After addObserver");
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
-
+    NSLog(@"After setupWithMerchantId");
     myCallbackId = command.callbackId;
     NSString* amountStr = [command.arguments objectAtIndex:0];
     NSString* orderId = [command.arguments objectAtIndex:1];
+
+    NSLog(@"After extract, amount:'%@', order:'%@'",amountStr,orderId);
+
     float fAmount = [amountStr floatValue];
+    NSLog(@"convert to float:'%f'",fAmount);
+
     MobilePayPayment *payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
+        NSLog(@"Created payment");
+
         //No need to start a payment if one or more parameters are missing
         if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
+            NSLog(@"order and productprice ok");
 
             [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
-
+                NSLog(@"error in payment, showing allert");
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
                                                                 message:[NSString stringWithFormat:@"reason: %@, suggestion: %@",error.localizedFailureReason, error.localizedRecoverySuggestion]
                                                               delegate:self
@@ -42,6 +51,7 @@ NSString *myCallbackId;
                 [alert show];
             }];
         }
+
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
@@ -49,7 +59,7 @@ NSString *myCallbackId;
 
     if ([url isKindOfClass:[NSURL class]]) {
         [self handleMobilePayPaymentWithUrl:url];
-        //NSLog(@"handleOpenURL %@", url);
+        NSLog(@"handleOpenURL %@", url);
     }
 }
 
