@@ -21,7 +21,18 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
-    NSLog(@"5startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
+
+    if (![[MobilePayManager sharedInstance]isMobilePayInstalled:MobilePayCountry_Denmark]) {
+      UIAlertView *installAlert = [[UIAlertView alloc] initWithTitle:@"MobilePay påkrævet"
+                                                      message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
+                                                    delegate:self
+                                            cancelButtonTitle:@"Fortryd"
+                                            otherButtonTitles:@"Installer MobilePay",nil];
+      [installAlert show];
+      return;
+    }
+
+    NSLog(@"6startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
