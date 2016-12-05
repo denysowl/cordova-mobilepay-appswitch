@@ -45,12 +45,12 @@ NSString *myCallbackId;
       NSLog(@"%@", exception.reason);
     }
 
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title"
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title2"
                                                     message:@"a asfd sd fsd"
                                                   delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Install MobilePay",nil];
-    [alert show];
+
 
     NSLog(@"Created payment");
 
@@ -99,6 +99,7 @@ NSString *myCallbackId;
     NSLog(@"Sleeping4");
     usleep(2000);
     fflush(stderr);*/
+    [alert show];
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
