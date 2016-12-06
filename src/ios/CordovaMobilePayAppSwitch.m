@@ -26,6 +26,7 @@ NSString *myCallbackId;
     NSDictionary *jsonResultDict = nil;
     CDVPluginResult *result = nil;
 
+    //If MobilePay is not installed
     if (![[MobilePayManager sharedInstance]isMobilePayInstalled:MobilePayCountry_Denmark]) {
       //Another method:
       UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"MobilePay påkrævet"
@@ -53,7 +54,7 @@ NSString *myCallbackId;
       return;
     }
 
-    NSLog(@"6startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
+    NSLog(@"startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
@@ -63,6 +64,8 @@ NSString *myCallbackId;
     myCallbackId = command.callbackId;
 
     NSString* amountStr = [command.arguments objectAtIndex:0];
+
+    //fetch the order id according to its type, as the json mechanism behind the scenes can choose NSNumer instead of NSString
     NSString* orderId = nil;
     if([[command.arguments objectAtIndex:1] isKindOfClass:[NSNumber class]]){
       orderId = [[command.arguments objectAtIndex:1] stringValue];
@@ -79,24 +82,13 @@ NSString *myCallbackId;
     }
 
 
-    //NSString* orderId = [command.arguments objectAtIndex:1];
-
-
-
     float fAmount = [amountStr floatValue];
-    //NSLog(@"convert to float:'%f'",fAmount);
-    //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
-
-
-
 
     MobilePayPayment *payment = nil;
     @try{
       payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
     }
     @catch (NSException *exception){
-      //NSLog(@"%@", exception.reason);
-
       jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
       @"Error when creating payment", @"errorMessage",
       nil];
@@ -105,42 +97,8 @@ NSString *myCallbackId;
       return;
     }
 
-    /*UIAlertView *startAlert = [[UIAlertView alloc] initWithTitle:@"startAlert"
-                                                    message:@"a asfd sd fsd"
-                                                  delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Install MobilePay",nil];
-    [startAlert show];
-    */
-
-    NSLog(@"Created payment");
-
-
-    /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
-    @"Test error", @"errorMessage",
-    nil];
-    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
-    [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];*/
-
-
-    /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
-    [NSString stringWithFormat:@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount], @"errorMessage",
-    nil];
-    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
-    [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-    */
-
-
         //No need to start a payment if one or more parameters are missing
         if (payment && orderId /*&& ([orderId length] > 0)*/ && (fAmount >= 0)) {
-
-          /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
-          @"order and product price ok4", @"errorMessage",
-          nil];
-          result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
-          [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-          return;*/
-
             @try{
 
               [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
@@ -156,12 +114,6 @@ NSString *myCallbackId;
                   [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
 
-                  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
-                                                                  message:[NSString stringWithFormat:@"reason: %@, suggestion: %@",error.localizedFailureReason, error.localizedRecoverySuggestion]
-                                                                delegate:self
-                                                        cancelButtonTitle:@"Cancel"
-                                                        otherButtonTitles:@"Install MobilePay",nil];
-                  [alert show];*/
               }];
             }
             @catch (NSException *exception){
@@ -171,25 +123,8 @@ NSString *myCallbackId;
               result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
               [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
               return;
-
-              //NSLog(@"begin: %@", exception.reason);
-              /*UIAlertView *exceptionAlert = [[UIAlertView alloc] initWithTitle:@"exceptionAlert"
-                                                              message:@"a asfd sd fsd"
-                                                            delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                                    otherButtonTitles:@"Install MobilePay",nil];
-              [exceptionAlert show];*/
             }
-
-
-            jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
-            @"after start", @"errorMessage",
-            nil];
-            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
-            [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-
         } else {
-          //NSLog(@"Not ok");
 
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"price and orderId not ok", @"errorMessage",
@@ -198,15 +133,6 @@ NSString *myCallbackId;
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
           return;
         }
-
-    //for test, sleep to allow logs to be used
-    NSLog(@"end");
-    /*UIAlertView *endAlert = [[UIAlertView alloc] initWithTitle:@"title2"
-                                                    message:@"a asfd sd fsd"
-                                                  delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Install MobilePay",nil];
-    [endAlert show];*/
 }
 - (void)handleOpenURL:(NSNotification*)notification
 {
@@ -256,7 +182,7 @@ NSString *myCallbackId;
         [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
         //TODO: show an appropriate error message to the user. Check MobilePayManager.h for a complete description of the error codes
-
+        
         //An example of using the MobilePayErrorCode enum
         //if (error.code == MobilePayErrorCodeUpdateApp) {
         //    NSLog(@"You must update your MobilePay app");
