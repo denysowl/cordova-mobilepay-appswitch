@@ -114,15 +114,12 @@ NSString *myCallbackId;
         //No need to start a payment if one or more parameters are missing
         if (payment && orderId /*&& ([orderId length] > 0)*/ && (fAmount >= 0)) {
 
-          jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+          /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"order and product price ok4", @"errorMessage",
           nil];
           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-          return;
-            //NSLog(@"order and productprice ok");
-
-
+          return;*/
 
             @try{
 
@@ -163,6 +160,14 @@ NSString *myCallbackId;
                                                     otherButtonTitles:@"Install MobilePay",nil];
               [exceptionAlert show];*/
             }
+
+
+            jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+            @"after start", @"errorMessage",
+            nil];
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
+            [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
+
         } else {
           //NSLog(@"Not ok");
 
