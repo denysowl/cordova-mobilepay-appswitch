@@ -67,12 +67,12 @@ NSString *myCallbackId;
     //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
     MobilePayPayment *payment = nil;
-    @try{
+    //@try{
       payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
-    }
+    /*}
     @catch (NSException *exception){
       NSLog(@"%@", exception.reason);
-    }
+    }*/
 
     /*UIAlertView *startAlert = [[UIAlertView alloc] initWithTitle:@"startAlert"
                                                     message:@"a asfd sd fsd"
@@ -153,7 +153,7 @@ NSString *myCallbackId;
               [exceptionAlert show];*/
             }
         } else {
-          NSLog(@"Not ok");
+          //NSLog(@"Not ok");
 
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"price and orderId not ok", @"errorMessage",
