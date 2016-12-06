@@ -103,16 +103,16 @@ NSString *myCallbackId;
     [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];*/
 
 
-    jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
     [NSString stringWithFormat:@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount], @"errorMessage",
     nil];
     result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
     [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-
+    */
 
 
         //No need to start a payment if one or more parameters are missing
-        if (payment && (payment.orderId.length > 0) /*&& (payment.productPrice >= 0)*/) {
+        if (payment && orderId && (orderId.length > 0) && (fAmount >= 0)) {
 
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"order and product price ok", @"errorMessage",
