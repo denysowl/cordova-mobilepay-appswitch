@@ -87,11 +87,11 @@ NSString *myCallbackId;
     NSDictionary *jsonResultDict = nil;
     CDVPluginResult *result = nil;
 
-    /*NSDictionary *jsonResultDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
+    jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
     @"Test error", @"errorMessage",
     nil];
-    CDVPluginResult *result1 = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict1];
-    [self.commandDelegate sendPluginResult:result1 callbackId:myCallbackId];*/
+    result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
+    [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
 
 
@@ -99,7 +99,7 @@ NSString *myCallbackId;
         if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
 
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
-          @"order nad product price ok", @"errorMessage",
+          @"order and product price ok", @"errorMessage",
           nil];
           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
@@ -116,7 +116,7 @@ NSString *myCallbackId;
             @try{
 
               [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
-                  NSLog(@"error in payment, showing allert");
+                  NSLog(@"error in payment");
 
                   NSDictionary *jsonResultDict = nil;
                   CDVPluginResult *result = nil;
@@ -128,12 +128,12 @@ NSString *myCallbackId;
                   [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
 
-                  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
+                  /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
                                                                   message:[NSString stringWithFormat:@"reason: %@, suggestion: %@",error.localizedFailureReason, error.localizedRecoverySuggestion]
                                                                 delegate:self
                                                         cancelButtonTitle:@"Cancel"
                                                         otherButtonTitles:@"Install MobilePay",nil];
-                  [alert show];
+                  [alert show];*/
               }];
             }
             @catch (NSException *exception){
