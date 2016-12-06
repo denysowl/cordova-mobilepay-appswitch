@@ -118,6 +118,9 @@ NSString *myCallbackId;
               [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
                   NSLog(@"error in payment, showing allert");
 
+                  NSDictionary *jsonResultDict = nil;
+                  CDVPluginResult *result = nil;
+
                   jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
                   @"Error in beginMobilePaymentWithPayment", @"errorMessage",
                   nil];
