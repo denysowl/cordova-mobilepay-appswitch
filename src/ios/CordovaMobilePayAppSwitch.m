@@ -25,19 +25,19 @@ NSString *myCallbackId;
     if (![[MobilePayManager sharedInstance]isMobilePayInstalled:MobilePayCountry_Denmark]) {
       //Another method:
       UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"MobilePay påkrævet"
-                                                                         message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
-                                                                  preferredStyle:UIAlertControllerStyleAlert];
+                                                                       message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
+                                                                preferredStyle:UIAlertControllerStyleAlert];
       //We add buttons to the alert controller by creating UIAlertActions:
       UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"Fortryd"
-                                                         style:UIAlertActionStyleDefault
-                                                       handler:nil]; //You can use a block here to handle a press on this button
+                                                       style:UIAlertActionStyleDefault
+                                                     handler:nil]; //You can use a block here to handle a press on this button
 
       UIAlertAction *actionInstall = [UIAlertAction actionWithTitle:@"Installer"
-                                                style:UIAlertActionStyleDefault
-                                                handler:^(UIAlertAction *action) {
-                                                  NSURL *url = [NSURL URLWithString:[[MobilePayManager sharedInstance] mobilePayAppStoreLinkDK]];
-                                                  [[UIApplication sharedApplication] openURL:url];
-                                                }]; //You can use a block here to handle a press on this button
+                                              style:UIAlertActionStyleDefault
+                                              handler:^(UIAlertAction *action) {
+                                                NSURL *url = [NSURL URLWithString:[[MobilePayManager sharedInstance] mobilePayAppStoreLinkDK]];
+                                                [[UIApplication sharedApplication] openURL:url];
+                                              }]; //You can use a block here to handle a press on this button
 
 
       [alertController addAction:actionCancel];
@@ -74,13 +74,13 @@ NSString *myCallbackId;
       NSLog(@"%@", exception.reason);
     }
 
-    UIAlertView *startAlert = [[UIAlertView alloc] initWithTitle:@"startAlert"
+    /*UIAlertView *startAlert = [[UIAlertView alloc] initWithTitle:@"startAlert"
                                                     message:@"a asfd sd fsd"
                                                   delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"Install MobilePay",nil];
     [startAlert show];
-
+    */
 
     NSLog(@"Created payment");
 
@@ -92,16 +92,16 @@ NSString *myCallbackId;
         if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
             NSLog(@"order and productprice ok");
 
-            UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
+            /*UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
                                                             message:@"a asfd sd fsd"
                                                           delegate:self
                                                   cancelButtonTitle:@"Cancel"
                                                   otherButtonTitles:@"Install MobilePay",nil];
             [okAlert show];
-
+            */
             @try{
 
-              /*[[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
+              [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
                   NSLog(@"error in payment, showing allert");
 
                   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:error.localizedDescription
@@ -110,7 +110,7 @@ NSString *myCallbackId;
                                                         cancelButtonTitle:@"Cancel"
                                                         otherButtonTitles:@"Install MobilePay",nil];
                   [alert show];
-              }];*/
+              }];
             }
             @catch (NSException *exception){
               NSLog(@"begin: %@", exception.reason);
