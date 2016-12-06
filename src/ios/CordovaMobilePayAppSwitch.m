@@ -22,6 +22,10 @@ NSString *myCallbackId;
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
 
+    //Used for showing errors
+    NSDictionary *jsonResultDict = nil;
+    CDVPluginResult *result = nil;
+
     if (![[MobilePayManager sharedInstance]isMobilePayInstalled:MobilePayCountry_Denmark]) {
       //Another method:
       UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"MobilePay påkrævet"
@@ -83,8 +87,7 @@ NSString *myCallbackId;
     //NSLog(@"convert to float:'%f'",fAmount);
     //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
-    NSDictionary *jsonResultDict = nil;
-    CDVPluginResult *result = nil;
+
 
 
     MobilePayPayment *payment = nil;
