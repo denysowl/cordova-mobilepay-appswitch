@@ -112,22 +112,17 @@ NSString *myCallbackId;
 
 
         //No need to start a payment if one or more parameters are missing
-        if (payment && orderId && ([orderId length] > 0)/* && (fAmount >= 0)*/) {
+        if (payment && orderId /*&& ([orderId length] > 0)*/ && (fAmount >= 0)) {
 
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
-          @"order and product price ok3", @"errorMessage",
+          @"order and product price ok4", @"errorMessage",
           nil];
           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
           return;
-            NSLog(@"order and productprice ok");
+            //NSLog(@"order and productprice ok");
 
-            /*UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
-                                                            message:@"a asfd sd fsd"
-                                                          delegate:self
-                                                  cancelButtonTitle:@"Cancel"
-                                                  otherButtonTitles:@"Install MobilePay",nil];
-            [okAlert show];*/
+
 
             @try{
 
