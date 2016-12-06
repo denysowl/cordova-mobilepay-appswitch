@@ -101,7 +101,7 @@ NSString *myCallbackId;
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"order nad product price ok", @"errorMessage",
           nil];
-          result2 = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict2];
+          result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
             NSLog(@"order and productprice ok");
