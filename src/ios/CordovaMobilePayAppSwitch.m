@@ -23,14 +23,6 @@ NSString *myCallbackId;
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
 
     if (![[MobilePayManager sharedInstance]isMobilePayInstalled:MobilePayCountry_Denmark]) {
-      /*UIAlertView *installAlert = [[UIAlertView alloc] initWithTitle:@"MobilePay påkrævet"
-                                                      message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
-                                                    delegate:self
-                                            cancelButtonTitle:@"Fortryd"
-                                            otherButtonTitles:@"Installer MobilePay",nil];
-      [installAlert show];
-      */
-
       //Another method:
       UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"MobilePay påkrævet"
                                                                          message:@"For at kunne betale er det nødvendigt at have MobilePay installeret"
@@ -40,7 +32,7 @@ NSString *myCallbackId;
                                                          style:UIAlertActionStyleDefault
                                                        handler:nil]; //You can use a block here to handle a press on this button
 
-      UIAlertAction *actionInstall = [UIAlertAction actionWithTitle:@"Fortryd"
+      UIAlertAction *actionInstall = [UIAlertAction actionWithTitle:@"Installer"
                                                 style:UIAlertActionStyleDefault
                                                 handler:^(UIAlertAction *action) {
                                                   NSURL *url = [NSURL URLWithString:[[MobilePayManager sharedInstance] mobilePayAppStoreLinkDK]];
