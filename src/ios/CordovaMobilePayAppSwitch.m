@@ -57,8 +57,25 @@ NSString *myCallbackId;
     //NSLog(@"command:'%@'",command);
 
     myCallbackId = command.callbackId;
+
     NSString* amountStr = [command.arguments objectAtIndex:0];
-    NSString* orderId = [command.arguments objectAtIndex:1];
+    NSString* orderId = nil;
+    if([[command.arguments objectAtIndex:1] isKindOfClass:[NSNumber class]]){
+      orderId = [[command.arguments objectAtIndex:1] stringValue];
+    }
+    else if([[command.arguments objectAtIndex:1] isKindOfClass:[NSString class]]){
+      orderId = [command.arguments objectAtIndex:1];
+    } else {
+      jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+      @"orderId not string or number", @"errorMessage",
+      nil];
+      result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
+      [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
+      return;
+    }
+
+
+    //NSString* orderId = [command.arguments objectAtIndex:1];
 
 
 
