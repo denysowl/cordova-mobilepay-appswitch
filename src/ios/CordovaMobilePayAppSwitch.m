@@ -66,13 +66,24 @@ NSString *myCallbackId;
     //NSLog(@"convert to float:'%f'",fAmount);
     //NSLog(@"After extract, amount:'%@', order:'%@' float:'%f'",amountStr,orderId,fAmount);
 
+    NSDictionary *jsonResultDict = nil;
+    CDVPluginResult *result = nil;
+
+
     MobilePayPayment *payment = nil;
-    //@try{
+    @try{
       payment = [[MobilePayPayment alloc]initWithOrderId:orderId productPrice:fAmount];
-    /*}
+    }
     @catch (NSException *exception){
-      NSLog(@"%@", exception.reason);
-    }*/
+      //NSLog(@"%@", exception.reason);
+
+      jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+      @"Error when creating payment", @"errorMessage",
+      nil];
+      result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
+      [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
+      return;
+    }
 
     /*UIAlertView *startAlert = [[UIAlertView alloc] initWithTitle:@"startAlert"
                                                     message:@"a asfd sd fsd"
@@ -84,15 +95,13 @@ NSString *myCallbackId;
 
     NSLog(@"Created payment");
 
-    NSDictionary *jsonResultDict = nil;
-    CDVPluginResult *result = nil;
 
-    /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+    jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
     @"Test error", @"errorMessage",
     nil];
     result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
     [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-    */
+    
 
 
         //No need to start a payment if one or more parameters are missing
