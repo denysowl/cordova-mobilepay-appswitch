@@ -105,7 +105,7 @@ NSString *myCallbackId;
 
 
         //No need to start a payment if one or more parameters are missing
-        if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
+        if (1/*payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)*/) {
 
           jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"order and product price ok", @"errorMessage",
