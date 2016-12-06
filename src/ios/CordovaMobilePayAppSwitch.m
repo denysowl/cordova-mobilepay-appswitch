@@ -92,13 +92,13 @@ NSString *myCallbackId;
         if (payment && (payment.orderId.length > 0) && (payment.productPrice >= 0)) {
             NSLog(@"order and productprice ok");
 
-            /*UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
+            UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
                                                             message:@"a asfd sd fsd"
                                                           delegate:self
                                                   cancelButtonTitle:@"Cancel"
                                                   otherButtonTitles:@"Install MobilePay",nil];
             [okAlert show];
-            */
+
             @try{
 
               [[MobilePayManager sharedInstance]beginMobilePaymentWithPayment:payment error:^(NSError * _Nonnull error) {
