@@ -96,12 +96,12 @@ NSString *myCallbackId;
     NSLog(@"Created payment");
 
 
-    jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
     @"Test error", @"errorMessage",
     nil];
     result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
     [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-    
+    */
 
 
         //No need to start a payment if one or more parameters are missing
@@ -112,7 +112,7 @@ NSString *myCallbackId;
           nil];
           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
-
+          return;
             NSLog(@"order and productprice ok");
 
             /*UIAlertView *okAlert = [[UIAlertView alloc] initWithTitle:@"okAlert"
@@ -151,9 +151,9 @@ NSString *myCallbackId;
               nil];
               result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
               [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
+              return;
 
-
-              NSLog(@"begin: %@", exception.reason);
+              //NSLog(@"begin: %@", exception.reason);
               /*UIAlertView *exceptionAlert = [[UIAlertView alloc] initWithTitle:@"exceptionAlert"
                                                               message:@"a asfd sd fsd"
                                                             delegate:self
@@ -169,6 +169,7 @@ NSString *myCallbackId;
           nil];
           result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
           [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
+          return;
         }
 
     //for test, sleep to allow logs to be used
