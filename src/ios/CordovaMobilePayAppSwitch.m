@@ -84,7 +84,15 @@ NSString *myCallbackId;
 
     NSLog(@"Created payment");
 
+    NSDictionary *jsonResultDict1 = [NSDictionary dictionaryWithObjectsAndKeys:
+    @"Test error", @"errorMessage",
+    nil];
 
+    /*NSData *jsonResultData1 = [NSJSONSerialization dataWithJSONObject:jsonResultDict1 options:NSJSONWritingPrettyPrinted error: nil];
+    NSString *jsonResultString1 = [[NSString alloc] initWithData:jsonResultData1 encoding:NSUTF8StringEncoding];*/
+
+    CDVPluginResult *result1 = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict1];
+    [self.commandDelegate sendPluginResult:result1 callbackId:myCallbackId];
 
 
 
@@ -124,7 +132,7 @@ NSString *myCallbackId;
         } else {
           NSLog(@"Not ok");
 
-          /*NSDictionary *jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
+          NSDictionary *jsonResultDict = [NSDictionary dictionaryWithObjectsAndKeys:
           @"Missing orderId or productPrice", @"errorMessage",
           nil];
 
@@ -134,7 +142,7 @@ NSString *myCallbackId;
           NSLog(@"ErrorResult:\n%@", jsonResultString);
 
           CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsDictionary:jsonResultDict];
-          [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];*/
+          [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
         }
 
     //for test, sleep to allow logs to be used
