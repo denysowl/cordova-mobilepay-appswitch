@@ -21,6 +21,7 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
+    NSString* callbackUrl = [self.commandDelegate.settings objectForKey:[@"callbackUrl" lowercaseString]];
 
     //Used for showing errors
     NSDictionary *jsonResultDict = nil;
@@ -60,6 +61,8 @@ NSString *myCallbackId;
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
     //NSLog(@"After setupWithMerchantId");
     //NSLog(@"command:'%@'",command);
+    //setting callback url
+  [[MobilePayManager sharedInstance] setServerCallbackUrl:callbackUrl];
 
     myCallbackId = command.callbackId;
 
@@ -182,7 +185,7 @@ NSString *myCallbackId;
         [self.commandDelegate sendPluginResult:result callbackId:myCallbackId];
 
         //TODO: show an appropriate error message to the user. Check MobilePayManager.h for a complete description of the error codes
-        
+
         //An example of using the MobilePayErrorCode enum
         //if (error.code == MobilePayErrorCodeUpdateApp) {
         //    NSLog(@"You must update your MobilePay app");
