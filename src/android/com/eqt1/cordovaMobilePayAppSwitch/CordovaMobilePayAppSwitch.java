@@ -46,6 +46,8 @@ public class CordovaMobilePayAppSwitch extends CordovaPlugin {
     if(action.equals("startPayment")) {
       String amount = args.getString(0);
       String orderId = args.getString(1);
+      String callbackUrl = args.getString(2);
+
       this.callbackContext = callbackContext;
 
         // Check if the MobilePay app is installed on the device.
@@ -57,8 +59,8 @@ public class CordovaMobilePayAppSwitch extends CordovaPlugin {
           payment.setProductPrice(new BigDecimal(amount));
           payment.setOrderId(orderId);
           //payment.setServerCallbackUrl("https://all2day.dk/appswitchstatus?TimeStamp=2015-08-27T15:36:42.939&OrderId=34666357&MerchantId=APPDK1175851001&TransactionId=1234567890&Amount=00001500&Currency=DKK&Country=DK&PaymentStatus=RES&ReturnCode=00&ReasonCode=00");
-          payment.setServerCallbackUrl("https://all2day.dk/appswitchstatus");
-          Log.d(TAG, "setting callback url to https://all2day.dk/appswitchstatus");
+          payment.setServerCallbackUrl(callbackUrl);
+          Log.d(TAG, "setting callback url to :".callbackUrl);
           // Create a payment Intent using the Payment object from above.
           Intent paymentIntent = MobilePay.getInstance().createPaymentIntent(payment);
 
