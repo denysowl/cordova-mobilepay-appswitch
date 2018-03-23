@@ -80,7 +80,7 @@ error, the `failed` callback is passed a
     var onSuccess = function(result) {
         alert('OrderId: '          + result.orderId          + '\n' +
               'TransactionId: '         + result.transactionId         + '\n' +
-              'AmountWithdrawnFromCard: '          + result.amountWithdrawnFromCard          + '\n' +
+              'AmountWithdrawnFromCard: '          + result.amountWithdrawnFromCard          + '\n' );
     };
 
     // onError Callback receives an errorr string
