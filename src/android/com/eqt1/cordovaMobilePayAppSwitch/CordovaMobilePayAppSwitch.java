@@ -46,8 +46,6 @@ public class CordovaMobilePayAppSwitch extends CordovaPlugin {
     if(action.equals("startPayment")) {
       String amount = args.getString(0);
       String orderId = args.getString(1);
-      String callbackUrl = args.getString(2);
-
       this.callbackContext = callbackContext;
 
         // Check if the MobilePay app is installed on the device.
@@ -59,9 +57,6 @@ public class CordovaMobilePayAppSwitch extends CordovaPlugin {
           payment.setProductPrice(new BigDecimal(amount));
           payment.setOrderId(orderId);
 
-          payment.setServerCallbackUrl(callbackUrl);
-
-          Log.d(TAG, "setting callback url to :"+callbackUrl);
           // Create a payment Intent using the Payment object from above.
           Intent paymentIntent = MobilePay.getInstance().createPaymentIntent(payment);
 

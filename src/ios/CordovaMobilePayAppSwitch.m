@@ -1,7 +1,7 @@
 #import "CordovaMobilePayAppSwitch.h"
 
 #import <Cordova/CDVAvailability.h>
-#import "MobilePayManager.h"
+#import "MobilePayManager/MobilePayManager.h"
 
 @implementation CordovaMobilePayAppSwitch
 
@@ -21,8 +21,7 @@ NSString *myCallbackId;
 - (void)startPayment:(CDVInvokedUrlCommand *)command {
     NSString* urlScheme = [self.commandDelegate.settings objectForKey:[@"urlScheme" lowercaseString]];
     NSString* merchantId = [self.commandDelegate.settings objectForKey:[@"merchantId" lowercaseString]];
-    NSString* callbackUrl = [self.commandDelegate.settings objectForKey:[@"callbackUrl" lowercaseString]];
-
+    NSLog(@"startPayment, urlScheme: '%@', merchantId: '%@''", urlScheme, merchantId);
     //Used for showing errors
     NSDictionary *jsonResultDict = nil;
     CDVPluginResult *result = nil;
@@ -59,10 +58,6 @@ NSString *myCallbackId;
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURL:) name:urlScheme object:nil];
     //NSLog(@"After addObserver: country:'%i'",MobilePayCountry_Denmark);
   [[MobilePayManager sharedInstance] setupWithMerchantId:merchantId merchantUrlScheme:urlScheme country:MobilePayCountry_Denmark];
-    //NSLog(@"After setupWithMerchantId");
-    //NSLog(@"command:'%@'",command);
-    //setting callback url
-  [[MobilePayManager sharedInstance] setServerCallbackUrl:callbackUrl];
 
     myCallbackId = command.callbackId;
 

@@ -33,7 +33,7 @@
 
 
         <source-file src="src/android/com/eqt1/cordovaMobilePayAppSwitch/CordovaMobilePayAppSwitch.java" target-dir="src/com/eqt1/cordovaMobilePayAppSwitch/" />
-        <source-file src="src/android/mobilepay-appswitch-1.8.0.jar" target-dir="libs" framework="true"/>
+        <source-file src="src/android/mobilepay-appswitch-1.8.1.jar" target-dir="libs" framework="true"/>
     </platform>
 
     <!-- ios -->
@@ -56,11 +56,11 @@
         <header-file src="src/ios/CordovaMobilePayAppSwitch.h" />
         <source-file src="src/ios/CordovaMobilePayAppSwitch.m" />
 
-        <source-file src="src/ios/libMobilePayManager1.8.0.a" framework="true" />
-        <header-file src="src/ios/MobilePayManager.h" />
-        <header-file src="src/ios/MobilePayPayment.h" />
-        <header-file src="src/ios/MobilePaySuccessfulPayment.h" />
-        <header-file src="src/ios/MobilePayCancelledPayment.h" />
+        <source-file src="src/ios/MobilePayManager/libMobilePayManager1.8.1.a" framework="true" target-dir="MobilePayManager"/>
+        <header-file src="src/ios/MobilePayManager/MobilePayManager.h"  target-dir="MobilePayManager"/>
+        <header-file src="src/ios/MobilePayManager/MobilePayPayment.h"  target-dir="MobilePayManager"/>
+        <header-file src="src/ios/MobilePayManager/MobilePaySuccessfulPayment.h"  target-dir="MobilePayManager"/>
+        <header-file src="src/ios/MobilePayManager/MobilePayCancelledPayment.h"  target-dir="MobilePayManager"/>
 
         <config-file target="*-Info.plist" parent="CFBundleURLTypes">
         <array>
