@@ -8,5 +8,9 @@
       "ios"
     ]
   },
-  "description": "A cordova plugin for Danske Banks MobilePay AppSwitch"
+  "description": "A cordova plugin for Danske Banks MobilePay AppSwitch",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/denysowl/cordova-mobilepay-appswitch.git"
+  }
 }
